@@ -63,7 +63,7 @@ Your work will be assessed based on the following criteria:
 
 ## Deployment
 
-You need to deploy the application; However, you need to think about how you can deploy and scale such solutions and you'll be asked during the review about it.
+You don't need to deploy the application; However, you need to think about how you can deploy and scale such solutions and you'll be asked during the review about it.
 
 
 
