@@ -1,71 +1,68 @@
-# DataEnhancrs full stack software engineer technical assessment
+# Mail sender with analytics project
+
+## Description:
+
+It consists of an application with 2 views, one to send e-mails and one to show analytics about sent e-mails
 
 
-## Context
+## Project Architecture:
+It uses Angular as front-end JS framework using the following components:
+* the `app` component containing the whole application which have inside:
 
-In the context of our recruitment process, we prepared this technical exercise for our candidates to assess their ability to think, design and realize solutions and components related to our products.
+    * the `nav-bar` component so we can navigate frome view to view
 
-## Introduction
+    * the result of the routing between two in `router-outlet`
 
-We want to create a solution to send emails to contacts and keep track of the total number of emails sent.
+* the `nav-bar` component contains the title og the application and two `span`s with `routerLinkActive` property two indicate which route we take when it's clicked (show the `mail` component or the `analytics` component)
 
-Moreover, we want to have 2 email templates and give the choice to the administrator to pick the suitable one through the same UI.
+* the `mail` component contains the `form` component
+* the `form` component uses groups to get user data, we also injected a `mails` service that we created to send get and post requests
+* the `analytics` component is injected with a `analytics` service that we created to fetch data and send it down to it's child, the `chart` component
+* the `chart` component gets the data from its parent and display it
 
-The UI will be composed of 2 views: 
+## Requirements:
 
-1. View 1: Contains a form with all the necessary input to send emails to the users and select which email template that will be used for the email's content.
-2. View 2: A Chart displaying the total emails sent per day.
+1. [NodeJS](https://nodejs.org/en/)
+2. [Redis](https://redis.io/)
+3. [MongoDB](https://www.mongodb.com/)
 
-The backend consists of a REST API with 2 microservices that would do the following tasks: 
+## Commands to get it working:
 
-* Emails service: 
-  * Connect to the email SMTP server of the service provider.
-  * Fetch the contact details, email type and content through a POST HTTP call.
-  * Apply the right email template.
-  * Send the email.
+Do not forget to start MongoDB and Redis server with `sudo service redis-server start`
+### Back-end :
 
+Start by opening a new terminal in the project folder and tap `cd ./back-main/`
 
-* Analytics service: 
-  * Receive an event every time an email is sent.
-  * Persist the event in a database.
-  * Expose the analytics data through a GET HTTP call.
+Install Node dependencies `npm i` 
 
+When it's done the back dependencies will be installed
 
-![Assessment intro image](./assessment_intro.png?raw=true "Title")
+add a `.env` file in the `./back-main/` folder containing the environement variables
 
-## Frontend requirements 
+#### Mail Microservice:
 
-* The frontend must be an Angular app `version=>12.0`.
-* The application must be divided into atomic and reusable components.
-* The analytics page will be reused many times in the future; therefore, the component must be generic and dynamic enough.
+tap `node ./back-main/mailService/db.js` so we can add templates data to our DB
+start the Mail microservice with `node ./back-main/mailService/mail.js`, it should say
 
+`Listening on ${PORT}`
 
-## Backend requirements 
-* Use of NodeJs as the programming language for your microservices no matter the framework used.
-* Use Outlook as the email services provider for sending emails.
-* REST API principles and guidelines must be demonstrated in the 2 API calls.
-* The email templates must be created with the HTML template engine [Pug](https://github.com/pugjs/pug) 
-* The database choice is yours, however you'll be asked to justify your choice.
+#### Analytics Microservice:
 
-## Delivery 
+Open a new terminal and get to the `back-main` folder 
 
-The code should be delivered in a mono-repo on a different branch named with the following syntax `assessment/{firstname}-{lastname}`.
+tap `node ./back-main/analyticsService/db.js` so we can add example data to our DB
 
-Your repo must contain a `readme.md` file describing your project and the requirements/commands to run it locally and furthermore explaining the splitting of your Angular components.
+start the Mail microservice with `node ./back-main/mailService/mail.js`, it should say
 
-## Points of attention 
+```
+Listening on ${ANOTHER_PORT}
+waiting for data
+```
 
-Your work will be assessed based on the following criteria: 
+### Front-end :
 
-* Frontend architecture, meaning the way you are creating your components.
-* Clean, clear and commented code
-* Not exposing secrets in code, instead share the secrets by email at staff@dataenhancers.io
+open a new terminal and get to the front folder with `cd ./front-main/`
 
-## Deployment
-
-You don't need to deploy the application; However, you need to think about how you can deploy and scale such solutions and you'll be asked during the review about it.
-
-
-
+start the Angular application with `ng serve -o` it should open the application on your default browser
 
 

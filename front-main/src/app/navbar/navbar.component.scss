@@ -1,0 +1,21 @@
+mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav {
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-self: stretch;
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        &:hover,
+        &.active {
+            cursor: pointer;
+            background-color: rgba($color: #000000, $alpha: 0.4);
+        }
+    }
+}
