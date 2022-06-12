@@ -1,0 +1,39 @@
+<form [formGroup]="mail">
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input type="email" matInput placeholder="email@exa.com" formControlName="address">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input type="text" matInput placeholder="Name of client" formControlName="name">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Subject</mat-label>
+            <input type="text" matInput placeholder="Subject" formControlName="subject">
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Email template</mat-label>
+            <mat-select matNativeControl formControlName="template">
+                <mat-option *ngFor="let template of this.templates | async" value="{{template.id}}">{{template.name}}</mat-option>
+
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field appearance="outline">
+            <mat-label>Message</mat-label>
+            <textarea matInput placeholder="Message" formControlName="message"></textarea>
+        </mat-form-field>
+    </div>
+    <div>
+        <button *ngIf="!this.progress" mat-raised-button color="primary" type="submit" (click)="envoyerForm()">Send</button>
+        <mat-spinner color="primary" *ngIf="this.progress"></mat-spinner>
+    </div>
+</form>
